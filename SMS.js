@@ -10,7 +10,6 @@ class SMS extends Message {
         let textMessage = this.attributes['body'];
         if(typeof textMessage === 'undefined') {
             textMessage = this.attributes['text'];
-
         }
         
         let textnode = document.createTextNode(textMessage['nodeValue']);

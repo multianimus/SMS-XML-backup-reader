@@ -20,4 +20,15 @@
     <script src="MMS.js"></script>
     <script src="displayMessages.js"></script>
 </body>
-<html>
+</html>
+
+<script>
+    // Add an event listener for the 'keydown' event
+    document.addEventListener('keydown', function (event) {
+        // Check if the key pressed is 'd' (case-insensitive)
+        if (event.key.toLowerCase() === 'd') {
+            // Toggle dark background
+            document.body.classList.toggle('dark-mode');
+        }
+    });
+</script>

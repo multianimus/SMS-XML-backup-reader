@@ -31,6 +31,7 @@ function loadFile() {
         fr.readAsText(file);
     }
 
+    document.querySelector('form').style.display = 'none';  // Hide the form
 }
 
 if (typeof (DOMParser) == 'undefined') {

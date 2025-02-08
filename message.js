@@ -34,7 +34,16 @@ class Message {
     }
 
     displayInfo() {
-        this.messageContainer.className = "messageContainer";
+
+        const messageType = this.getMessageType();
+
+        if (messageType === "sent") {
+            this.messageContainer.className = "messageContainer";
+        }
+        else {
+            this.messageContainer.className = "messageContainer2";
+        }
+       
         this.timestamp = this.attributes["date"];
         const address = this.attributes["address"];
         const contactName = this.attributes["contact_name"];
@@ -55,18 +64,28 @@ class Message {
         addressDiv.innerHTML = address["nodeValue"];
         this.messageContainer.appendChild(addressDiv);
 
-        // Display contact name if available
-        if (contactName !== undefined && contactName["nodeValue"] !== '(Unknown)') {
-            let contactNameDiv = document.createElement("div");
-            contactNameDiv.className = "contactName";
-            contactNameDiv.innerHTML = contactName["nodeValue"];
-            this.messageContainer.appendChild(contactNameDiv);
-        }
+        
 
         // Display message type (sent, received, etc.)
-        const messageType = this.getMessageType();
+        
         let messageTypeNode = document.createElement("div");
         messageTypeNode.className = "messageType";
+        if (messageType === "sent") {
+            // messageTypeNode.innerHTML = "You"; // For sent messages, display "you"
+            let contactNameDiv = document.createElement("div");
+            contactNameDiv.className = "contactName";
+            contactNameDiv.innerHTML = "You"
+            this.messageContainer.appendChild(contactNameDiv);
+        } else {
+            // Display contact name if available
+            if (contactName !== undefined && contactName["nodeValue"] !== '(Unknown)') {
+                let contactNameDiv = document.createElement("div");
+                contactNameDiv.className = "contactName";
+                contactNameDiv.innerHTML = contactName["nodeValue"];
+                this.messageContainer.appendChild(contactNameDiv);
+            }
+        }
+
         //messageTypeNode.innerHTML = messageType;
         this.messageContainer.className += (' ' + messageType);
         this.messageContainer.appendChild(messageTypeNode);
