@@ -33,45 +33,45 @@ class Message {
         }
     }
 
-    displayInfo() { //display date + received/sent
+    displayInfo() {
         this.messageContainer.className = "messageContainer";
         this.timestamp = this.attributes["date"];
         const address = this.attributes["address"];
         const contactName = this.attributes["contact_name"];
         this.address = address;
-        
-        //display address
+
+        // Create and add the timestamp first
+        const readableDate = this.attributes["readable_date"];
+        if (typeof readableDate !== 'undefined') {
+            let dateDiv = document.createElement("div");
+            dateDiv.className = "messageDate";
+            dateDiv.innerHTML = readableDate["nodeValue"];
+            this.messageContainer.appendChild(dateDiv); // Add at the top
+        }
+
+        // Display address
         let addressDiv = document.createElement("div");
         addressDiv.className = "address";
         addressDiv.innerHTML = address["nodeValue"];
         this.messageContainer.appendChild(addressDiv);
 
-        //display contact name if avaliable
-        if(contactName !== undefined && contactName["nodeValue"] !== '(Unknown)') {
+        // Display contact name if available
+        if (contactName !== undefined && contactName["nodeValue"] !== '(Unknown)') {
             let contactNameDiv = document.createElement("div");
             contactNameDiv.className = "contactName";
             contactNameDiv.innerHTML = contactName["nodeValue"];
             this.messageContainer.appendChild(contactNameDiv);
         }
-        
-        //display message type (sent, received etc)
+
+        // Display message type (sent, received, etc.)
         const messageType = this.getMessageType();
         let messageTypeNode = document.createElement("div");
         messageTypeNode.className = "messageType";
-        messageTypeNode.innerHTML = messageType;
-        this.messageContainer.className += (' '+messageType); 
+        //messageTypeNode.innerHTML = messageType;
+        this.messageContainer.className += (' ' + messageType);
         this.messageContainer.appendChild(messageTypeNode);
-
-        //display time
-        const readableDate = this.attributes["readable_date"];
-
-        if(typeof readableDate !== 'undefined') { //not every message part has a timestamp
-            let dateDiv = document.createElement("div");
-            dateDiv.className = "messageDate";
-            dateDiv.innerHTML = readableDate["nodeValue"];
-            this.messageContainer.appendChild(dateDiv); 
-        }
     }
+
 
     getMessage() {
         this.displayInfo();
